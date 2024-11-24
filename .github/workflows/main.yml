@@ -1,0 +1,38 @@
+name: Hikari CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: 11
+        distribution: adopt
+
+    - name: Install Dependencies
+      run: ./gradlew dependencies
+
+    - name: Build Application
+      run: ./gradlew assembleDebug
+
+    - name: Run Tests
+      run: ./gradlew test
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: hikari-debug-apk
+        path: app/build/outputs/apk/debug/*.a
