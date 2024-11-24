@@ -12,4 +12,3 @@
 - Follow the [Android Kotlin Style Guide](https://developer.android.com/kotlin/style-guide).
 - Write unit tests for new features.
 - Keep commits small and descriptive.
-
